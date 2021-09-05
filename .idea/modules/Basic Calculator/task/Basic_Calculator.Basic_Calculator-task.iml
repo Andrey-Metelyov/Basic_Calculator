@@ -65,8 +65,6 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../../../../Basic Calculator/task/build/intermediates/javac/debug/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../../Basic Calculator/task/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../../Basic Calculator/task">
       <sourceFolder url="file://$MODULE_DIR$/../../../../Basic Calculator/task/src/main/java" isTestSource="false" />
@@ -77,6 +75,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../../Basic Calculator/task/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../Basic Calculator/task/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../Basic Calculator/task/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Basic Calculator/task/out" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
