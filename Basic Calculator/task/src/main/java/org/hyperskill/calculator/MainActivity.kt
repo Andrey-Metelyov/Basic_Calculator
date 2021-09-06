@@ -7,6 +7,8 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+    private var prev: Double? = null
+    private var operation: Operation? = null
     private lateinit var button0: Button
     private lateinit var button1: Button
     private lateinit var button2: Button
@@ -25,6 +27,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var multiplyButton: Button
     private lateinit var subtractButton: Button
     private lateinit var editText: EditText
+
+    enum class Operation {
+        PLUS,
+        MINUS,
+        DIVIDE,
+        MULTIPLY
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +81,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.button0 -> {
-                if (editText.text.toString() != "0") {
+                if (editText.text.toString() != "0" && editText.text.toString() != "-") {
                     editText.text.append("0")
                 }
             }
@@ -87,6 +96,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button9 -> addDigit("9")
             R.id.dotButton -> {
                 if (!editText.text.contains('.')) {
+                    if (editText.text.toString() == "-") {
+                        editText.text.append('0')
+                    }
                     editText.text.append('.')
                 }
             }
@@ -94,8 +106,41 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 editText.text.clear()
                 editText.text.append('0')
             }
-
+            R.id.subtractButton -> {
+                if (editText.text.toString() == "0") {
+                    editText.text.clear()
+                    editText.append("-")
+                } else {
+                    setOperation(Operation.MINUS)
+                }
+            }
+            R.id.addButton -> setOperation(Operation.PLUS)
+            R.id.divideButton -> setOperation(Operation.DIVIDE)
+            R.id.multiplyButton -> setOperation(Operation.MULTIPLY)
+            R.id.equalButton -> calculate()
         }
+    }
+
+    private fun calculate() {
+        if (prev != null) {
+            val result: Double
+            val cur = editText.text.toString().toDouble()
+            result = when (operation!!) {
+                Operation.PLUS -> prev!! + cur
+                Operation.MINUS -> prev!! - cur
+                Operation.DIVIDE -> prev!! / cur
+                Operation.MULTIPLY -> prev!! * cur
+            }
+            editText.text.clear()
+            editText.text.append(result.toString())
+        }
+    }
+
+    private fun setOperation(op: Operation) {
+        prev = editText.text.toString().toDouble()
+        operation = op
+        editText.text.clear()
+        editText.text.append('0')
     }
 
     private fun addDigit(text: String) {
