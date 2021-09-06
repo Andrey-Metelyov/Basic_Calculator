@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.math.round
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var prev: Double? = null
@@ -103,6 +104,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.clearButton -> {
+                editText.hint = "0"
                 editText.text.clear()
                 editText.text.append('0')
             }
@@ -132,15 +134,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 Operation.MULTIPLY -> prev!! * cur
             }
             editText.text.clear()
-            editText.text.append(result.toString())
+            if (result == round(result)) {
+                editText.text.append(result.toInt().toString())
+            } else {
+                editText.text.append(result.toString())
+            }
         }
     }
 
     private fun setOperation(op: Operation) {
         prev = editText.text.toString().toDouble()
-        operation = op
+        editText.hint = editText.text
         editText.text.clear()
-        editText.text.append('0')
+        operation = op
+//        editText.text.clear()
+//        editText.text.append('0')
     }
 
     private fun addDigit(text: String) {
